@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rating-app-configmap
+data:
+  DATABASE_SOURCE: "host=localhost port=5432 user=rating_user password=rating_pwd dbname=rating_db sslmode=disable"
+  SERVER_PORT: ":5000"

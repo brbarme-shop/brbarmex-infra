@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rating-app
+  labels:
+    app.kubernetes.io/name: rating-app
+    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/managed-by: helm
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: barmex-shop
+  annotations:
+    imageregistry: "https://hub.docker.com/"
+    contact-suport: "brbarmex-squad"
+    contact-phone: "5511995283697"
+    contact-mail: "bruno.b.melo@live.com"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rating-app
+  template:
+    metadata:
+      labels:
+        app: rating-app
+    spec:
+      containers:
+        - name: rating-container
+          image:  brbarmex/rating:1.0.0
+          resources:
+            requests:
+              memory: 30Mi
+              cpu: 80m
+            limits:
+              memory: 80Mi
+              cpu: 100m
+          ports:
+          - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: rating-app-configmap
